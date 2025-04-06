@@ -33,6 +33,7 @@ cd /Tools
 sudo wget -q https://github.com/ropnop/kerbrute/releases/download/v1.0.3/kerbrute_linux_amd64
 sudo chmod +x kerbrute_linux_amd64
 sudo wget -q https://github.com/SpecterOps/SharpHound/releases/download/v2.6.3/SharpHound_v2.6.3_windows_x86.zip
+sudo unzip SharpHound_v2.6.3_windows_x86.zip
 
 echo "[*] Setting up BloodHound CE with Docker..."
 sudo mkdir -p /opt/bloodhoundce
