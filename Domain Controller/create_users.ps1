@@ -101,6 +101,39 @@ foreach ($username in $sampledUsers) {
 Write-Host "`n[+] All users processed. Log saved to: $LogFile"
 Write-Host "[*] Special AS-REP Roastable User: $specialUsername"
 
+# --- Grant full control to AS-REP roastable user on \\localhost\victims share ---
+try {
+    $victimShare = "victims"
+    $victimPath = "C:\victims"
+    $shareUser = "$env:USERDOMAIN\$specialUsername"
+
+    # Ensure the directory exists
+    if (-not (Test-Path -Path $victimPath)) {
+        New-Item -ItemType Directory -Path $victimPath -Force
+        Write-Host "[+] Created directory: $victimPath"
+    }
+
+    # Ensure the share exists
+    if (-not (Get-SmbShare -Name $victimShare -ErrorAction SilentlyContinue)) {
+        New-SmbShare -Name $victimShare -Path $victimPath -FullAccess "Administrators"
+        Write-Host "[+] Created SMB share: \\localhost\$victimShare"
+    }
+
+    # Grant share permissions to the special user
+    Grant-SmbShareAccess -Name $victimShare -AccountName $shareUser -AccessRight Full -Force
+    Write-Host "[+] Granted SMB share access to $shareUser"
+
+    # Grant NTFS permissions
+    $acl = Get-Acl $victimPath
+    $permission = "$shareUser","FullControl","Allow"
+    $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule $permission
+    $acl.SetAccessRule($accessRule)
+    Set-Acl $victimPath $acl
+    Write-Host "[+] Granted NTFS FullControl permission on $victimPath to $shareUser"
+} catch {
+    Write-Warning "[-] Failed to assign share or NTFS permissions to $specialUsername: $_"
+}
+
 # --- Create Groups and Relationships ---
 if (-not (Get-ADGroup -Filter "Name -eq 'Stellar Admins'" -ErrorAction SilentlyContinue)) {
     New-ADGroup -Name "Stellar Admins" -Path "CN=Users,$domainDN" -GroupScope Global -GroupCategory Security

