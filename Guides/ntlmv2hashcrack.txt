@@ -1,0 +1,1 @@
+hashcat -m 5600 ntlmv2_hashes.txt wordlist.txt -O --force
