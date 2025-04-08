@@ -2,6 +2,10 @@
 
 set -e  # Exit on error
 
+echo "[*] Updating and upgrading system packages..."
+sudo apt update
+sudo apt upgrade -y
+
 echo "[*] Installing Docker and Docker Compose..."
 sudo apt install -y docker.io docker-compose
 
@@ -13,10 +17,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 echo "[*] Cleaning up any historical folders, files, and installations"
 sudo rm -Rf /Tools
 sudo docker-compose -f /opt/bloodhoundce/docker-compose.yml down -v
-
-echo "[*] Updating and upgrading system packages..."
-sudo apt update
-sudo apt upgrade -y
 
 echo "[*] Creating directories..."
 sudo mkdir -p /Tools/Wordlists
