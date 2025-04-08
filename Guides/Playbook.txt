@@ -1,0 +1,6 @@
+nmap
+kerbrute
+impacket get NP Users
+pre-auth password cracking
+smb share discovery
+kerberoasting

