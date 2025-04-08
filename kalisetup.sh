@@ -48,6 +48,9 @@ sleep 30
 echo "[*] Retrieving initial login password for BloodHound..."
 sudo docker logs bloodhoundce-bloodhound-1 2>&1 | grep "Initial Password Set To:"
 
+sudo systemctl enable ssh.socket
+sudo systemctl start ssh.socket
+
 echo "[*] Setup complete."
 echo "--------------------------------------"
 echo "Login: http://localhost:8080/ui/login"
