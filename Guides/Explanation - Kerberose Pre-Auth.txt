@@ -1,0 +1,65 @@
+🔐 What is Kerberos Pre-Authentication?
+Kerberos Pre-Authentication is a security mechanism that requires users to prove their identity before the Key Distribution Center (KDC) will begin the ticketing process.
+
+💡 How it works:
+User requests a Ticket-Granting Ticket (TGT) from the Authentication Service (AS).
+
+Pre-Authentication enforces that the user must encrypt a timestamp using their password-derived key and send it to the KDC.
+
+If the timestamp is valid and decryption succeeds, the KDC knows the requester has the correct password and issues a TGT.
+
+If not, the request is denied.
+
+Without pre-authentication, attackers can ask the KDC for a TGT without knowing the user's password, leading to offline brute-force attacks.
+
+⚠️ Why Pre-Authentication Should Never Be Disabled
+Disabling Pre-Authentication is a critical misconfiguration and creates a major attack surface, especially in Active Directory environments.
+
+❗ Attack Scenario: AS-REP Roasting
+If pre-auth is disabled, anyone can request a TGT for the user, and the KDC responds with data encrypted using the user’s password hash.
+
+This encrypted blob can then be cracked offline using tools like Hashcat to reveal the user's plaintext password.
+
+No account lockouts. No alerts. Total stealth.
+
+🔓 Summary of Risks:
+Risk	Impact
+AS-REP Roasting	Offline cracking of user password hashes
+No logging	Difficult to detect
+No lockouts	Allows infinite cracking attempts
+Low privilege users	Even standard users can be vulnerable
+🧬 Why Might Pre-Authentication Be Disabled?
+Despite the risks, there are a few edge-case scenarios where Pre-Authentication might be disabled:
+
+1. Legacy System Compatibility
+Very old systems or services that can’t handle timestamp-based pre-auth.
+
+Sometimes seen in legacy UNIX/Linux integrations or ancient applications.
+
+2. Service Accounts with Smartcard-only Auth
+If smartcard or certificate-based auth is enforced and pre-auth is redundant, it might be disabled in tightly controlled environments.
+
+3. Testing and Honeypots
+Red teams and blue teams intentionally disable pre-auth to create bait accounts that trigger alerts if someone tries AS-REP roasting.
+
+4. Misconfiguration or Negligence
+Often disabled by accident, poor understanding, or outdated group policy templates.
+
+🛡️ Best Practices
+✅ Ensure Pre-Authentication is enabled for all user and service accounts.
+
+✅ Use PowerShell or AD queries to detect accounts without pre-auth:
+Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true}
+
+✅ Harden high-value accounts (e.g., domain admins) with multi-factor authentication and smartcard logon.
+
+✅ Regularly audit your Active Directory with tools like:
+
+BloodHound
+
+PingCastle
+
+Purple Knight
+
+🧠 Final Thoughts
+Disabling Pre-Authentication is rarely justifiable and should always trigger a risk assessment. Even in valid edge cases, it should only be done with compensating controls (like isolation, MFA, or monitoring). Pre-auth is your first defense in Kerberos — keep it enabled.

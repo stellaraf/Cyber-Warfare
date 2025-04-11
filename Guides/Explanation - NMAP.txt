@@ -1,0 +1,84 @@
+🛠️ Nmap: Network Mapper
+Nmap (short for Network Mapper) is a powerful and widely used open-source tool designed for network discovery and security auditing. Developed by Gordon "Fyodor" Lyon, it's a staple in the toolkit of network administrators, system engineers, penetration testers, and security professionals.
+
+🎯 Purpose of Nmap
+The primary goal of Nmap is to provide insights into network infrastructure. It allows users to:
+
+Identify active hosts on a network.
+
+Scan ports to determine which services are running.
+
+Detect operating systems and their versions.
+
+Discover potential security risks or misconfigurations.
+
+In essence, it helps paint a picture of what’s connected to a network and how it’s configured.
+
+⚙️ Core Functions
+Nmap offers a broad range of features, including:
+
+1. Host Discovery
+Determine which devices are online. This is often done using ping sweeps or ARP requests.
+nmap -sn 192.168.1.0/24
+
+2. Port Scanning
+Check for open, closed, or filtered ports on target hosts.
+nmap -p 1-65535 192.168.1.100
+
+3. Service and Version Detection
+Identify services (like HTTP, SSH) and their versions running on open ports.
+nmap -sV 192.168.1.100
+
+4. Operating System Detection
+Guess the operating system based on TCP/IP fingerprinting.
+nmap -O 192.168.1.100
+
+5. Scripting Engine (NSE)
+Run custom or predefined scripts to detect vulnerabilities, backdoors, misconfigurations, and more.
+nmap --script=vuln 192.168.1.100
+
+6. Traceroute
+Map the path packets take to reach a host.
+nmap --traceroute 192.168.1.100
+
+🔍 Popular Use Cases
+✅ 1. Network Inventory
+Admins use Nmap to audit what devices are live, what services are offered, and ensure there’s no rogue hardware.
+
+✅ 2. Security Auditing
+Penetration testers and red teams scan networks for vulnerable systems and services.
+
+✅ 3. Vulnerability Scanning
+Combined with NSE scripts, Nmap helps identify CVEs, outdated software, weak SSL configurations, etc.
+
+✅ 4. Compliance Testing
+Used as part of periodic scans to maintain standards like PCI-DSS, HIPAA, or ISO 27001.
+
+✅ 5. Firewall Testing
+Nmap can test how well firewalls and intrusion detection systems detect or block traffic.
+
+✅ 6. Pre-Exploit Recon
+Before launching attacks during a red team operation or CTF, users rely on Nmap to gather intelligence.
+
+🧪 Sample Command for Full Recon
+bash
+Copy
+Edit
+nmap -A -T4 -p- 192.168.1.100
+Breakdown:
+
+-A: Enables OS detection, version detection, script scanning, and traceroute.
+
+-T4: Speeds up the scan (higher aggressiveness).
+
+-p-: Scans all 65535 ports.
+
+🧠 Pro Tips
+Run as root/admin for accurate results (especially for OS detection).
+
+Combine with Zenmap (GUI version) for visualization.
+
+Regularly update with nmap --script-updatedb for the latest scripts.
+
+🛡️ Important Note
+While Nmap is powerful, use it responsibly. Unauthorized scanning of networks can be considered illegal or unethical. Always have permission before running scans, especially against systems you don’t own.
