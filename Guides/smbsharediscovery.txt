@@ -1,7 +1,0 @@
-Enumerate shares on the server:
-smbclient -U=l33thackers.stellar.tech/funguy --password=outputfromjohn -L //10.3.32.11
-
-Establish an smbclient connection to the share:
-smbclient -U=l33thackers.stellar.tech/funguy --password=outputfromjohn -L \\\\10.3.32.11\\victims
-
-You can download the files from the directory by typing get filename

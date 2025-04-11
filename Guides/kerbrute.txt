@@ -1,5 +1,0 @@
-Use kerberute to identify users using the Xato 10 million user list
-./kerbrute_linux_amd64 userenum -d l33thackers.stellar.tech --dc 10.3.32.11 /Tools/Wordlists/xato-net-10-million-usernames.txt -o l33tusers.txt
-
-Cleanup the found users list
-cat l33tusers.txt | cut -f 8 -d ' ' |  sed 's/@l33thackers.stellar.tech//g' | sort | uniq -i | tee l33tuserscleaned.txt

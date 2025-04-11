@@ -1,9 +1,0 @@
-nmap (Find System / Services / Open Ports)
-kerbrute (Find users in the domain)
-impacket get NP Users (Obtain Pre Auth Token to crack offline)
-pre-auth password cracking (Crack the Pre Auth Token)
-smb share discovery (Enumarate and download anything from shares)
-kerberoasting (Identify users with SPN's on the domain)
-impacket get SPN (Obtain SPN Ticket to crack offline)
-SPN Cracking
-Remote Access if account has permissions (evil-winrm.txt)
